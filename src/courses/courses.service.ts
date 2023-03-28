@@ -4,7 +4,7 @@ import { CourseEntity } from './course.model';
 
 @Injectable()
 export class CoursesService {
-  private readonly courses: Array<CourseEntity> = [];
+  private readonly courses: CourseEntity[] = [];
 
   findAll(): CourseEntity[] {
     return this.courses;
