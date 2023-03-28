@@ -1,27 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { CategoriesService } from 'src/categories/categories.service';
-import { Course, CreateCourseInput } from 'src/graphql.schema';
+import { CreateCourseInput } from 'src/graphql.schema';
+import { CourseEntity } from './course.model';
 
 @Injectable()
 export class CoursesService {
-  private readonly courses: Course[] = [];
+  private readonly courses: Array<CourseEntity> = [];
 
-  constructor(private categoriesService: CategoriesService) {}
-
-  findAll(): Course[] {
+  findAll(): CourseEntity[] {
     return this.courses;
   }
 
-  create(newCourse: CreateCourseInput): Course {
+  create(createCourse: CreateCourseInput): CourseEntity {
     const id = this.create.length + 1;
-    const category = this.categoriesService.findById(newCourse.categoryId);
-    const course: Course = { ...newCourse, id, category };
+    const course: CourseEntity = { ...createCourse, id };
+
     this.courses.push(course);
 
     return course;
   }
 
-  findById(id: number): Course {
+  findById(id: number): CourseEntity {
     return this.courses.find((course) => course.id === id);
   }
 }
